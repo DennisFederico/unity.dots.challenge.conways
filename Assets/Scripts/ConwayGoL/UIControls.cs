@@ -43,7 +43,11 @@ namespace ConwayGoL {
             });
             startButton.onClick.AddListener(ProcessStartButtonClick);
             stopButton.onClick.AddListener(ProcessStopButtonClick);
-            exitButton.onClick.AddListener(Application.Quit);
+            exitButton.onClick.AddListener(QuitApplication);
+        }
+
+        private void QuitApplication() {
+            Application.Quit();
         }
 
         private void OnDisable() {
