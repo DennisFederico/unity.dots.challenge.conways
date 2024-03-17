@@ -1508,7 +1508,7 @@ MonoBehaviour:
   gridSlider: {fileID: 1157295477}
   startButton: {fileID: 895337472}
   stopButton: {fileID: 2070474468}
-  exitButton: {fileID: 0}
+  exitButton: {fileID: 1755669005}
 --- !u!1 &820211953
 GameObject:
   m_ObjectHideFlags: 0
