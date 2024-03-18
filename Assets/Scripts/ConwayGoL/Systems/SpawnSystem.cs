@@ -37,7 +37,7 @@ namespace ConwayGoL.Systems {
 
             var cellsBuffer = state.EntityManager.GetBuffer<CellState>(_gridEntity);
             cellsBuffer.Length = config.GridSize * config.GridSize;
-            state.EntityManager.Instantiate(prefabs.CellColorPrefab, cellsBuffer.Length, Allocator.Temp);
+            state.EntityManager.Instantiate(prefabs.CellColorPrefab, cellsBuffer.Length, state.WorldUpdateAllocator);
             //Grid origin offset to keep it centered
             var gridOffset = (config.GridSize - 1) * config.CellSize / 2;
             var aliveColor = new URPMaterialPropertyBaseColor { Value = config.CellAliveColor };
@@ -50,14 +50,14 @@ namespace ConwayGoL.Systems {
                 DeadState = new CellState() { IsAlive = false }
             }.Schedule(cellsBuffer.Length, 128, state.Dependency).Complete();
 
-            new PositionCellsJob() {
+            state.Dependency = new PositionCellsJob() {
                 CellStatesRO = cellsBuffer.AsNativeArray(),
                 GridSize = config.GridSize,
                 CellSize = config.CellSize,
                 GridOffset = gridOffset,
                 AliveColor = aliveColor,
                 DeadColor = deadColor
-            }.ScheduleParallel(state.Dependency).Complete();
+            }.ScheduleParallel(state.Dependency);
             
             //Handle the entity for the simulation
             var simulationTypeEntity = state.EntityManager.CreateEntity();
@@ -95,7 +95,7 @@ namespace ConwayGoL.Systems {
         [WithAll(typeof(URPMaterialPropertyBaseColor))]
         [BurstCompile]
         private partial struct PositionCellsJob : IJobEntity {
-            public NativeArray<CellState> CellStatesRO;
+            [ReadOnly] public NativeArray<CellState> CellStatesRO;
             public int GridSize;
             public float CellSize;
             public float GridOffset;

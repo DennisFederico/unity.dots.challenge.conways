@@ -37,8 +37,19 @@ The final submission contains two implementation of the simulation, a `MainThrea
 
 ## Performance
 
+### Mac i9 16-Cores
+
 I was able to simulate 1024x1024 (1.048.576) cells at 60fps on my Macbook 16-Core Intel Core i9.
 ![Mac-1024x1024.png](webimg%2FMac-1024x1024.png)
 
 And 2048x2048 (4.194.304) cells at 20fps on my Macbook 16-Core Intel Core i9.
 ![Mac-2048x2048.png](webimg%2FMac-2048x2048.png)
+
+### Windows i7 12-Cores
+
+On windows the simulation went a little better considering it has less cores (almost same clock) but I think its because of the Video Card.
+Up to 70fps on 1024x1024 grid (1.048.576 cells)
+![Win64-1024x1024.png](webimg%2FWin64-1024x1024.png)
+
+But same 20fps on 2048x2048 grid (4.194.304 cells) 
+![Win64-2048x2048.png](webimg%2FWin64-2048x2048.png)

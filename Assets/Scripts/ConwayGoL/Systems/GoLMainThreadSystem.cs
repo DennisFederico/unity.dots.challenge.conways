@@ -40,7 +40,7 @@ namespace ConwayGoL.Systems {
         private void ChangeColor(ref SystemState state) {
             var config = SystemAPI.GetSingleton<GoLConfig>();
             var cellsBuffer = SystemAPI.GetSingletonBuffer<CellState>();
-            var cellsGrid = cellsBuffer.ToNativeArray(Allocator.Temp).Reinterpret<bool>();
+            var cellsGrid = cellsBuffer.ToNativeArray(state.WorldUpdateAllocator).Reinterpret<bool>();
             
             var aliveState = new CellState() { IsAlive = true };
             var deadState = new CellState() { IsAlive = false };
